@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="WeaselSettings.Avalonia.Views.FuzzyPinyinWindow"
+        Title="模糊音设置"
+        Width="420"
+        SizeToContent="Height"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner">
+    <StackPanel Margin="16" Spacing="8">
+        <Grid ColumnDefinitions="130, 130, 130" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="4">
+            <CheckBox x:Name="chkZ_ZH" Grid.Row="0" Grid.Column="0" Content="z = zh"/>
+            <CheckBox x:Name="chkC_CH" Grid.Row="0" Grid.Column="1" Content="c = ch"/>
+            <CheckBox x:Name="chkS_SH" Grid.Row="0" Grid.Column="2" Content="s = sh"/>
+            <CheckBox x:Name="chkF_H" Grid.Row="1" Grid.Column="0" Content="f = h"/>
+            <CheckBox x:Name="chkL_N" Grid.Row="1" Grid.Column="1" Content="l = n"/>
+            <CheckBox x:Name="chkR_L" Grid.Row="1" Grid.Column="2" Content="r = l"/>
+            <CheckBox x:Name="chkAn_Ang" Grid.Row="2" Grid.Column="0" Content="an = ang"/>
+            <CheckBox x:Name="chkEn_Eng" Grid.Row="2" Grid.Column="1" Content="en = eng"/>
+            <CheckBox x:Name="chkIn_Ing" Grid.Row="2" Grid.Column="2" Content="in = ing"/>
+            <CheckBox x:Name="chkIan_Iang" Grid.Row="3" Grid.Column="0" Content="ian = iang"/>
+            <CheckBox x:Name="chkUan_Uang" Grid.Row="3" Grid.Column="1" Content="uan = uang"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10" Margin="0,12,0,0">
+            <Button x:Name="btnReset" Content="恢复默认设置" MinWidth="100" Padding="12,4"/>
+            <Button x:Name="btnOk" Content="确定" MinWidth="76" Padding="12,4"/>
+            <Button x:Name="btnCancel" Content="取消" MinWidth="76" Padding="12,4"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

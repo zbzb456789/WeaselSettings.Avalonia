@@ -1,0 +1,473 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:WeaselSettings.Avalonia.ViewModels"
+        xmlns:models="using:WeaselSettings.Avalonia.Models"
+        xmlns:controls="using:WeaselSettings.Avalonia.Controls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="820"
+        x:Class="WeaselSettings.Avalonia.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/weasel.ico"
+        Title="属性设置260912版"
+        Width="1060" Height="820" MinWidth="1060" MinHeight="820"
+        WindowStartupLocation="CenterScreen">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style Selector="Border.GroupBox">
+            <Setter Property="BorderBrush" Value="#C2FFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="Padding" Value="0,0,0,0"/>
+        </Style>
+        <Style Selector="TextBlock.GroupBoxHeader">
+            <Setter Property="Background" Value="#F0F0F0"/>
+            <Setter Property="Padding" Value="0,0"/>
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="*, Auto">
+        <TabControl Grid.Row="0" Margin="5">
+
+            <!-- ================= 第一页：常用 ================= -->
+            <TabItem Header="常用">
+                <Grid ColumnDefinitions="6.5*, 3.5*" Margin="5">
+                    <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="0,0,10,0">
+
+                            <!-- 输入风格 -->
+                            <Grid>
+                                <Border Classes="GroupBox" Margin="0,10,0,0"/>
+                                <TextBlock Classes="GroupBoxHeader" Text="输入风格" Margin="15,0,0,0" FontSize="16"/>
+                                <StackPanel Margin="10,22,10,10" Spacing="10">
+                                    <Grid ColumnDefinitions="80, *, Auto">
+                                        <TextBlock Text="输入方案：" />
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="20">
+                                            <RadioButton Content="五笔拼音混输"
+                                                         IsChecked="{Binding SelectedInputScheme, Converter={StaticResource EqualityConverter}, ConverterParameter='wubi_pinyin'}" />
+                                            <RadioButton Content="纯五笔"
+                                                         IsChecked="{Binding SelectedInputScheme, Converter={StaticResource EqualityConverter}, ConverterParameter='wubi'}" />
+                                            <RadioButton Content="纯拼音"
+                                                         IsChecked="{Binding SelectedInputScheme, Converter={StaticResource EqualityConverter}, ConverterParameter='luna_pinyin_simp'}" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="2" Spacing="5">
+                                            <Button x:Name="btnImportSpelling" Content="导入拆分" Padding="10,2"
+                                                    IsVisible="{Binding IsCustomSchemaSelected}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid ColumnDefinitions="80, *, Auto">
+                                        <TextBlock Text="五笔方案：" />
+                                        <WrapPanel Grid.Column="1" Orientation="Horizontal">
+                                            <RadioButton Content="86版" Margin="0,0,10,0"
+                                                         IsChecked="{Binding SelectedWubiVersion, Converter={StaticResource EqualityConverter}, ConverterParameter='86'}" />
+                                            <RadioButton Content="98版" Margin="0,0,10,0"
+                                                         IsChecked="{Binding SelectedWubiVersion, Converter={StaticResource EqualityConverter}, ConverterParameter='98'}" />
+                                            <RadioButton Content="新世纪" Margin="0,0,10,0"
+                                                         IsChecked="{Binding SelectedWubiVersion, Converter={StaticResource EqualityConverter}, ConverterParameter='06'}" />
+                                            <RadioButton Content="986版" Margin="0,0,10,0"
+                                                         IsChecked="{Binding SelectedWubiVersion, Converter={StaticResource EqualityConverter}, ConverterParameter='986'}" />
+                                            <RadioButton Content="虎码" Margin="0,0,10,0"
+                                                         IsChecked="{Binding SelectedWubiVersion, Converter={StaticResource EqualityConverter}, ConverterParameter='tiger'}" />
+                                            <RadioButton Content="自定义" Margin="0,0,10,0"
+                                                         IsChecked="{Binding SelectedWubiVersion, Converter={StaticResource EqualityConverter}, ConverterParameter='custom'}" />
+                                        </WrapPanel>
+                                        <StackPanel Grid.Column="6" Spacing="5">
+                                            <Button x:Name="btnImportCode" Content="导入码表" Padding="10,2"
+                                                    IsVisible="{Binding IsCustomSchemaSelected}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                     <Grid ColumnDefinitions="80, *">
+                                        <TextBlock Text="英文方案：" />
+                                        <WrapPanel Grid.Column="1" Orientation="Horizontal">
+                                            <CheckBox Content="英文单词" Margin="0,5"
+                                          IsChecked="{Binding EnglishWord}"/>
+                                            <CheckBox Content="单词翻译" Margin="50,5"
+                                          IsChecked="{Binding EnglishTranslation}"
+                                          IsEnabled="{Binding EnglishTranslationEnabled}"/>
+                                        </WrapPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- 默认状态 -->
+                            <Grid>
+                                <Border Classes="GroupBox" Margin="0,10,0,0"/>
+                                <TextBlock Classes="GroupBoxHeader" Text="默认状态" Margin="15,0,0,0" FontSize="16"/>
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="80, 170, 150, 120, Auto" Margin="10,22,10,10">
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="中/英文："/>
+                                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="20" Margin="0,5">
+                                        <RadioButton Content="中文"
+                                                     IsChecked="{Binding ChineseEnglishMode, Converter={StaticResource EqualityConverter}, ConverterParameter='中文'}" />
+                                        <RadioButton Content="英文"
+                                                     IsChecked="{Binding ChineseEnglishMode, Converter={StaticResource EqualityConverter}, ConverterParameter='英文'}" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Row="0" Grid.Column="2" Content="中文时使用英文"
+                                              IsChecked="{Binding AsciiPunct}"/>
+                                    <CheckBox Grid.Row="0" Grid.Column="3" Content="emoji开关"
+                                              IsChecked="{Binding ShowEmoji}"/>
+                                    <Button Grid.Row="0" Grid.Column="4" x:Name="btnFuzzyPinyin" Content="模糊音设置" Padding="10,2"/>
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="简/繁体："/>
+                                    <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="20" Margin="0,5">
+                                        <RadioButton Content="简体"
+                                                     IsChecked="{Binding SimplifiedTraditional, Converter={StaticResource EqualityConverter}, ConverterParameter='简体'}" />
+                                        <RadioButton Content="繁体"
+                                                     IsChecked="{Binding SimplifiedTraditional, Converter={StaticResource EqualityConverter}, ConverterParameter='繁体'}" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Row="1" Grid.Column="2" Content="显示拆分"
+                                              IsChecked="{Binding ShowSpelling}"/>
+                                    <CheckBox Grid.Row="1" Grid.Column="3" Content="显示编码"
+                                              IsChecked="{Binding ShowCode}"/>
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="全/半角："/>
+                                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Spacing="20" Margin="0,5">
+                                        <RadioButton Content="半角"
+                                                     IsChecked="{Binding HalfFullShape, Converter={StaticResource EqualityConverter}, ConverterParameter='半角'}" />
+                                        <RadioButton Content="全角"
+                                                     IsChecked="{Binding HalfFullShape, Converter={StaticResource EqualityConverter}, ConverterParameter='全角'}" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Row="2" Grid.Column="2" Content="显示读音"
+                                              IsChecked="{Binding ShowPinyin}"/>
+                                    <CheckBox Grid.Row="2" Grid.Column="3" Content="单字序号"
+                                              IsChecked="{Binding ShowIndex}"/>
+                                    <CheckBox Grid.Row="2" Grid.Column="4" Content="逐键提示"
+                                              IsChecked="{Binding EnableCompletion}"/>
+
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="词组/单字："/>
+                                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Spacing="20" Margin="0,5">
+                                        <RadioButton Content="词组"
+                                                     IsChecked="{Binding PhraseSingleChar, Converter={StaticResource EqualityConverter}, ConverterParameter='词组'}" />
+                                        <RadioButton Content="单字"
+                                                     IsChecked="{Binding PhraseSingleChar, Converter={StaticResource EqualityConverter}, ConverterParameter='单字'}" />
+                                    </StackPanel>
+                                    <CheckBox Grid.Row="3" Grid.Column="2" Content="智能调频"
+                                              IsChecked="{Binding EnableUserDict}"/>
+                                    <CheckBox Grid.Row="3" Grid.Column="3" Content="自动造词"
+                                              IsChecked="{Binding EnableEncoder}"/>
+                                    <CheckBox Grid.Row="3" Grid.Column="4" Content="屏蔽GBK"
+                                              IsChecked="{Binding Gb2312Only}"/>
+                                </Grid>
+                            </Grid>
+
+                            
+
+                            <!-- Z 键与按键行为 -->
+                            <Grid ColumnDefinitions="120, 120, 130, 140, 120" RowDefinitions="Auto, Auto" Margin="0,8,0,0">
+                                <CheckBox Grid.Row="0" Grid.Column="0" Content="Z键为通配键" Margin="0,5"
+                                          IsChecked="{Binding ZKeyWildcard}"/>
+                                <CheckBox Grid.Row="0" Grid.Column="1" Content="Z键重复上屏" Margin="0,5"
+                                          IsChecked="{Binding ZKeyRepeat}"/>
+                                <CheckBox Grid.Row="0" Grid.Column="2" Content="拼音反查 “`”" Margin="0,5"
+                                          IsChecked="{Binding ZKeyPinyin}"/>
+                                <CheckBox Grid.Row="0" Grid.Column="3" Content="回车取消输入" Margin="0,5"
+                                          IsChecked="{Binding ReturnEsc}"/>
+                                <CheckBox Grid.Row="0" Grid.Column="4" Content="空码回车上屏" Margin="0,5"
+                                          IsChecked="{Binding NullReturn}"
+                                          IsEnabled="{Binding NullReturnEnabled}"/>
+
+                                <CheckBox Grid.Row="1" Grid.Column="0" Content="快速上屏" Margin="0,5"
+                                          IsChecked="{Binding AutoSelect}"/>
+                                <CheckBox Grid.Row="1" Grid.Column="1" Content="四码唯一上屏" Margin="0,5"
+                                          IsChecked="{Binding MaxCodeLength}"
+                                          IsEnabled="{Binding MaxCodeEnabled}"/>
+                                <CheckBox Grid.Row="1" Grid.Column="2" Content="双击候选框截屏" Margin="0,5"
+                                          IsChecked="{Binding ClickToCapture}"/>
+                                <CheckBox Grid.Row="1" Grid.Column="3" Content="空码空格上屏编码" Margin="0,5"
+                                          IsChecked="{Binding SpaceScreen}"/>
+                            </Grid>
+
+                            <!-- 输入方案选择（自定义时显示） -->
+                            <Border IsVisible="{Binding IsCustomSchemaSelected}"
+                                    BorderBrush="#D0D0D0" BorderThickness="1" Margin="0,5,0,10" Padding="10">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="以下是输入方案选择，和Rime设置等同，没事别乱勾："/>
+                                    <ItemsControl ItemsSource="{Binding Schemas}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="models:SchemaOption">
+                                                <CheckBox Content="{Binding Name}"
+                                                          IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                                          Margin="8,4"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <TextBox Grid.Column="1"
+                             IsReadOnly="True"
+                             TextWrapping="Wrap"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             Background="White"
+                             Text="{Binding HelpText, Mode=OneWay}" />
+                </Grid>
+            </TabItem>
+
+            <!-- ================= 第二页：外观 ================= -->
+            <TabItem Header="外观">
+                <Grid ColumnDefinitions="350, *, 250" Margin="0,0,0,0">
+
+                    <!-- 左侧：外观设置 -->
+                    <Grid Grid.Column="0">
+                        <Border Classes="GroupBox" Margin="-5,10,0,0"/>
+                        <TextBlock Classes="GroupBoxHeader" Text="外观设置" Margin="15,0,0,0" FontSize="16"/>
+                        <ScrollViewer Margin="0,22,5,5" VerticalScrollBarVisibility="Auto">
+                            <Grid ColumnDefinitions="150, *" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="4">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="默认文字颜色:"/>
+                                <controls:RimeColorPicker x:Name="text_color_box" Grid.Row="0" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="候选框背景色:"/>
+                                <controls:RimeColorPicker x:Name="back_color_box" Grid.Row="1" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="候选框边框色:"/>
+                                <controls:RimeColorPicker x:Name="border_color_box" Grid.Row="2" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="候选框阴影色:"/>
+                                <controls:RimeColorPicker x:Name="shadow_color_box" Grid.Row="3" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="编码背景颜色:"/>
+                                <controls:RimeColorPicker x:Name="hilited_back_color_box" Grid.Row="4" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="编码文字颜色:"/>
+                                <controls:RimeColorPicker x:Name="hilited_text_color_box" Grid.Row="5" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="编码背景块阴影颜色:"/>
+                                <controls:RimeColorPicker x:Name="hilited_shadow_color_box" Grid.Row="6" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="注释文本颜色:"/>
+                                <controls:RimeColorPicker x:Name="comment_text_color_box" Grid.Row="7" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Text="高亮的标签竖块的颜色:"/>
+                                <controls:RimeColorPicker x:Name="hilited_mark_color_box" Grid.Row="8" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Text="高亮候选背景颜色:"/>
+                                <controls:RimeColorPicker x:Name="hilited_candidate_back_color_box" Grid.Row="9" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="10" Grid.Column="0" Text="高亮候选背景阴影颜色:"/>
+                                <controls:RimeColorPicker x:Name="hilited_candidate_shadow_color_box" Grid.Row="10" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="11" Grid.Column="0" Text="高亮候选的序数值颜色:"/>
+                                <controls:RimeColorPicker x:Name="hilited_label_color_box" Grid.Row="11" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="12" Grid.Column="0" Text="高亮候选文字颜色:"/>
+                                <controls:RimeColorPicker x:Name="hilited_candidate_text_color_box" Grid.Row="12" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="13" Grid.Column="0" Text="高亮候选背景块描边色:"/>
+                                <controls:RimeColorPicker x:Name="hilited_candidate_border_color_box" Grid.Row="13" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="14" Grid.Column="0" Text="高亮注释文字颜色:"/>
+                                <controls:RimeColorPicker x:Name="hilited_comment_text_color_box" Grid.Row="14" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="15" Grid.Column="0" Text="非高亮候选背景颜色:"/>
+                                <controls:RimeColorPicker x:Name="candidate_back_color_box" Grid.Row="15" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="16" Grid.Column="0" Text="非高亮候选文字颜色:"/>
+                                <controls:RimeColorPicker x:Name="candidate_text_color_box" Grid.Row="16" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="17" Grid.Column="0" Text="非高亮候选背景阴影色:"/>
+                                <controls:RimeColorPicker x:Name="candidate_shadow_color_box" Grid.Row="17" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="18" Grid.Column="0" Text="非高亮候选序数值颜色:"/>
+                                <controls:RimeColorPicker x:Name="label_color_box" Grid.Row="18" Grid.Column="1" Height="30"/>
+
+                                <TextBlock Grid.Row="19" Grid.Column="0" Text="非高亮候选边框颜色:"/>
+                                <controls:RimeColorPicker x:Name="candidate_border_color_box" Grid.Row="19" Grid.Column="1" Height="30"/>
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+
+                    <!-- 中间：皮肤与行为 -->
+                    <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="10,0" Spacing="10">
+                            <Grid ColumnDefinitions="100, *">
+                                <TextBlock Grid.Column="0" Text="浅色模式皮肤:" />
+                                <ComboBox x:Name="light_scheme_box" Grid.Column="1" HorizontalAlignment="Stretch"
+                                          ItemsSource="{Binding ColorSchemes}"
+                                          SelectedItem="{Binding LightScheme}"/>
+                            </Grid>
+                            <Grid ColumnDefinitions="100, *">
+                                <TextBlock Grid.Column="0" Text="深色模式皮肤:" />
+                                <ComboBox x:Name="dark_scheme_box" Grid.Column="1" HorizontalAlignment="Stretch"
+                                          ItemsSource="{Binding ColorSchemes}"
+                                          SelectedItem="{Binding DarkScheme}"/>
+                            </Grid>
+
+                            <Grid>
+                                <Border Classes="GroupBox" Margin="0,10,0,0"/>
+                                <TextBlock Classes="GroupBoxHeader" Text="布局设置" Margin="15,0,0,0" FontSize="16"/>
+                                <StackPanel Margin="10,22,10,10" Spacing="10">
+                                    <CheckBox Content="候选词横排显示" IsChecked="{Binding Horizontal}"/>
+                                    <StackPanel Orientation="Horizontal" Spacing="20">
+                                        <CheckBox Content="文字竖向显示" IsChecked="{Binding VerticalText}"/>
+                                        <CheckBox Content="从左往右" IsChecked="{Binding VerticalTextLtr}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid>
+                                <Border Classes="GroupBox" Margin="0,10,0,0"/>
+                                <TextBlock Classes="GroupBoxHeader" Text="行为设置" Margin="15,0,0,0" FontSize="16"/>
+                                <StackPanel Margin="10,22,10,10" Spacing="10">
+                                    <StackPanel Orientation="Horizontal" Spacing="15">
+                                        <TextBlock Text="每页候选词" VerticalAlignment="Center"/>
+                                        <NumericUpDown Minimum="1" Maximum="10"
+                                                       Value="{Binding PageSize, Mode=TwoWay}"
+                                                       Width="120"/>
+                                        <CheckBox Content="编码嵌入在光标处" VerticalAlignment="Center"
+                                                  IsChecked="{Binding InlinePreedit}"/>
+                                    </StackPanel>
+                                    <ComboBox x:Name="alternative_select_labels_box"
+                                              HorizontalAlignment="Stretch"
+                                              ItemsSource="{Binding SelectLabelOptions}"
+                                              SelectedItem="{Binding SelectedSelectLabels}"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- 预览 -->
+                            <Border Height="290" Background="#F8F8F8" BorderBrush="#D0D0D0" BorderThickness="1" CornerRadius="5">
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                    <controls:RimePreviewControl x:Name="rimePreview"/>
+                                </ScrollViewer>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- 右侧：文字设置 -->
+                    <Grid Grid.Column="2">
+                        <Border Classes="GroupBox" Margin="0,10,0,0"/>
+                        <TextBlock Classes="GroupBoxHeader" Text="文字设置" Margin="15,0,0,0" FontSize="16"/>
+                        <ScrollViewer Margin="10,22,10,10" VerticalScrollBarVisibility="Auto">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="全局字体类型"/>
+                                <controls:MultiFontComboBox x:Name="font_face_box"/>
+
+                                <TextBlock Text="标签字体类型"/>
+                                <controls:MultiFontComboBox x:Name="label_font_face_box"/>
+
+                                <TextBlock Text="注释字体类型"/>
+                                <controls:MultiFontComboBox x:Name="comment_font_face_box"/>
+
+                                <Grid ColumnDefinitions="*, 120" Margin="0,5,0,0">
+                                    <TextBlock Grid.Column="0" Text="全局字体大小"/>
+                                    <NumericUpDown Grid.Column="1" Minimum="1" Maximum="72"
+                                                   Value="{Binding FontPoint, Mode=TwoWay}"/>
+                                </Grid>
+                                <Grid ColumnDefinitions="*, 120">
+                                    <TextBlock Grid.Column="0" Text="标签字体大小"/>
+                                    <NumericUpDown Grid.Column="1" Minimum="1" Maximum="72"
+                                                   Value="{Binding LabelFontPoint, Mode=TwoWay}"/>
+                                </Grid>
+                                <Grid ColumnDefinitions="*, 120">
+                                    <TextBlock Grid.Column="0" Text="注释字体大小"/>
+                                    <NumericUpDown Grid.Column="1" Minimum="1" Maximum="72"
+                                                   Value="{Binding CommentFontPoint, Mode=TwoWay}"/>
+                                </Grid>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- ================= 第三页：词库管理 ================= -->
+            <TabItem Header="词库管理">
+                <Grid RowDefinitions="Auto, *, Auto" Margin="5">
+
+                    <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,10">
+                        <StackPanel Grid.Column="0" Spacing="8">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <ComboBox x:Name="System_Dict_Box" Width="130"
+                                          ItemsSource="{Binding DictSourceNames}"
+                                          SelectedIndex="{Binding SelectedDictIndex}"/>
+                                <Button x:Name="btnLoad" Content="打开yaml词库" Padding="15,4"/>
+                                <Border Width="120"/>
+                                <Button x:Name="btnSave" Content="保存词库修改" Padding="15,10" Background="#E0E0E0" FontSize="14"
+                                        Command="{Binding SaveDictCommand}"
+                                        IsEnabled="{Binding DictSaveEnabled}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <TextBlock Text="搜索:" VerticalAlignment="Center"/>
+                                <TextBox x:Name="txtFilter" Width="120" Text="{Binding DictFilter}"/>
+                                <Button x:Name="btnWeightUp" Content="权重+10" Padding="10,2"
+                                        Command="{Binding WeightUpCommand}"/>
+                                <Button x:Name="btnWeightDown" Content="权重-10" Padding="10,2"
+                                        Command="{Binding WeightDownCommand}"/>
+                                <Button x:Name="btnAddRow" Content=" + 插入词条 " Padding="10,2"
+                                        Command="{Binding AddEntryCommand}"/>
+                                <Button x:Name="btnDeleteRow" Content=" - 删除词条 " Padding="10,2"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Spacing="8" HorizontalAlignment="Right">
+                            <CheckBox Content="开启用户词库" IsChecked="{Binding UserDictEnabled}"/>
+                            <Button x:Name="btnDictSettings" Content="用户词库设置" HorizontalAlignment="Stretch"/>
+                            <Button x:Name="btnPhraseSettings" Content="打开短语设置" HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- TableView：Avalonia 12 官方推荐的只读表格控件，虚拟化性能远好于 DataGrid -->
+                    <TableView x:Name="dgDict"
+                               Grid.Row="1"
+                               x:DataType="models:DictionaryEntry"
+                               BorderBrush="Gray"
+                               BorderThickness="1"
+                               SelectionMode="Multiple"
+                               CanUserResizeColumns="True">
+                        <TableView.Columns>
+                            <TableViewColumn Header="词条" Binding="{Binding Word}" Width="2*"/>
+                            <TableViewColumn Header="编码" Binding="{Binding Code}" Width="1.5*"/>
+                            <TableViewColumn Header="权重" Binding="{Binding Weight}" Width="1*"/>
+                            <TableViewColumn Header="词干" Binding="{Binding Stem}" Width="1.5*"/>
+                        </TableView.Columns>
+                    </TableView>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10" Margin="0,10,0,0">
+                        <TextBlock Text="词条:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtEditText" Width="180" Text="{Binding EditWord}"/>
+
+                        <TextBlock Text="编码:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtEditCode" Width="100" Text="{Binding EditCode}"/>
+
+                        <TextBlock Text="权重:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtEditWeight" Width="80" Text="{Binding EditWeight}"/>
+
+                        <TextBlock Text="词干:" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtEditStem" Width="100" Text="{Binding EditStem}"
+                                 IsEnabled="{Binding EditStemEnabled}"/>
+
+                        <Button x:Name="btnApplyEdit" Content="确认修改" Padding="15,4" Margin="20,0,0,0"
+                                Command="{Binding ApplyEditCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- ================= 底部状态栏和操作按钮 ================= -->
+        <Border Grid.Row="1" Background="#EFEFEF" BorderBrush="#D0D0D0" BorderThickness="0,1,0,0" Padding="10">
+            <Grid ColumnDefinitions="Auto, *">
+                <TextBlock Grid.Column="0" Text="{Binding StatusText}" VerticalAlignment="Center" FontSize="12" MinWidth="140"/>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="80">
+                    <Button x:Name="btnInitialize" Content="初始化" Padding="20,5"/>
+                    <Button x:Name="btnRedeploy" Content="重新部署" Padding="20,5"
+                            Command="{Binding RedeployCommand}"/>
+                    <Button x:Name="btnSaveSettings" Content="保存" Padding="30,5" BorderBrush="#0078D7" BorderThickness="2" Background="White"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

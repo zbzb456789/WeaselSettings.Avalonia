@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="WeaselSettings.Avalonia.Views.AddPhraseWindow"
+        Title="自定义短语"
+        Width="480"
+        SizeToContent="Height"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner">
+    <StackPanel Margin="16" Spacing="10">
+        <Grid ColumnDefinitions="64, *" ColumnSpacing="8">
+            <TextBlock Text="编码：" VerticalAlignment="Center"/>
+            <TextBox x:Name="txtCode" Grid.Column="1"/>
+        </Grid>
+        <Grid ColumnDefinitions="64, *" ColumnSpacing="8">
+            <TextBlock Text="词条：" VerticalAlignment="Top" Margin="0,4,0,0"/>
+            <TextBox x:Name="txtWord" IsEnabled="False"
+                     Grid.Column="1"
+                     Height="140"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"/>
+        </Grid>
+        <TextBlock x:Name="lblDupItems" TextWrapping="Wrap" MinHeight="20"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+            <Button x:Name="btnOk" Content="确认" MinWidth="76" Padding="12,4" IsEnabled="False"/>
+            <Button x:Name="btnCancel" Content="取消" MinWidth="76" Padding="12,4"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

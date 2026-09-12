@@ -1,0 +1,19 @@
+﻿<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="WeaselSettings.Avalonia.App"
+             xmlns:local="using:WeaselSettings.Avalonia"
+             xmlns:conv="using:WeaselSettings.Avalonia.Converters"
+             RequestedThemeVariant="Default">
+    <Application.Resources>
+        <conv:EqualityConverter x:Key="EqualityConverter" />
+    </Application.Resources>
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+</Application>

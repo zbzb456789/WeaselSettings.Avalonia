@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:WeaselSettings.Avalonia.Controls"
+             x:Class="WeaselSettings.Avalonia.Controls.MultiFontComboBox">
+    <Grid>
+        <TextBox x:Name="DisplayBox"
+                 IsReadOnly="True"
+                 Cursor="Hand"
+                 TextWrapping="NoWrap" />
+        <Popup x:Name="FontPopup"
+               PlacementTarget="{Binding #DisplayBox}"
+               Placement="Bottom"
+               IsLightDismissEnabled="True">
+            <Border Background="White"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    Padding="2">
+                <ListBox x:Name="FontList"
+                         Width="320"
+                         MaxHeight="300"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="controls:FontOption">
+                            <CheckBox Content="{Binding FontName}"
+                                      FontFamily="{Binding FontName}"
+                                      IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                      Margin="4,2" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

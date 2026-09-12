@@ -1,0 +1,39 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:WeaselSettings.Avalonia.Controls"
+        x:Class="WeaselSettings.Avalonia.Views.Dialogs.ColorPickerWindow"
+        Title="选择颜色"
+        Width="360"
+        SizeToContent="Height"
+        CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False">
+    <StackPanel Margin="16" Spacing="12">
+        <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+            <controls:AlphaColorPanel x:Name="PreviewPanel"
+                                      Width="48"
+                                      Height="32"
+                                      HorizontalAlignment="Left" />
+            <TextBox x:Name="HexBox"
+                     Grid.Column="1"
+                     VerticalAlignment="Center"
+                     FontFamily="Default" />
+        </Grid>
+
+        <Grid x:Name="ChannelsGrid" ColumnDefinitions="28, *" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="8" RowSpacing="6">
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="R" VerticalAlignment="Center"/>
+            <Slider x:Name="RedSlider" Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="255"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="G" VerticalAlignment="Center"/>
+            <Slider x:Name="GreenSlider" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="255"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="B" VerticalAlignment="Center"/>
+            <Slider x:Name="BlueSlider" Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="255"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="A" VerticalAlignment="Center"/>
+            <Slider x:Name="AlphaSlider" Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="255"/>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
+            <Button x:Name="OkButton" Content="确定" MinWidth="76" Padding="12,4"/>
+            <Button x:Name="CancelButton" Content="取消" MinWidth="76" Padding="12,4"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

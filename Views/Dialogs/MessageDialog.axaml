@@ -1,0 +1,24 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="WeaselSettings.Avalonia.Views.Dialogs.MessageDialog"
+        Width="420"
+        SizeToContent="Height"
+        CanResize="False"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        Title="提示">
+    <Grid RowDefinitions="*, Auto" Margin="16">
+        <TextBlock x:Name="MessageText"
+                   Grid.Row="0"
+                   TextWrapping="Wrap"
+                   MaxWidth="380"
+                   VerticalAlignment="Center"
+                   FontSize="14" />
+        <StackPanel x:Name="ButtonsPanel"
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Spacing="10"
+                    Margin="0,16,0,0" />
+    </Grid>
+</Window>
