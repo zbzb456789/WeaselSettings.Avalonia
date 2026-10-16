@@ -16,7 +16,7 @@ namespace WeaselSettings
 {
     public class YamlHelper
     {
-        // AOT 模式下不需要 Deserializer，我们直接用 YamlStream000000
+        // AOT 模式下不需要 Deserializer，我们直接用 YamlStream
         private readonly ISerializer _serializer;
         // --- 新增：内存缓存 ---
         // Key 为文件路径，Value 为该文件对应的内存 DOM 树
