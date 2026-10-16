@@ -5,12 +5,12 @@
         xmlns:controls="using:WeaselSettings.Avalonia.Controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="1080" d:DesignHeight="820"
+        mc:Ignorable="d" d:DesignWidth="1060" d:DesignHeight="720"
         x:Class="WeaselSettings.Avalonia.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Icon="/Assets/weasel.ico"
-        Title="属性设置260912版"
-        Width="1060" Height="820" MinWidth="1060" MinHeight="820"
+        Title="属性设置261012版"
+        Width="1060" Height="720" MinWidth="1060" MinHeight="720"
         WindowStartupLocation="CenterScreen">
 
     <Design.DataContext>
@@ -28,7 +28,6 @@
             <Setter Property="Padding" Value="0,0,0,0"/>
         </Style>
         <Style Selector="TextBlock.GroupBoxHeader">
-            <Setter Property="Background" Value="#F0F0F0"/>
             <Setter Property="Padding" Value="0,0"/>
             <Setter Property="Margin" Value="0,0,0,0"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -115,7 +114,7 @@
                                               IsChecked="{Binding AsciiPunct}"/>
                                     <CheckBox Grid.Row="0" Grid.Column="3" Content="emoji开关"
                                               IsChecked="{Binding ShowEmoji}"/>
-                                    <Button Grid.Row="0" Grid.Column="4" x:Name="btnFuzzyPinyin" Content="模糊音设置" Padding="10,2"/>
+                                    <Button Grid.Row="0" Grid.Column="4" x:Name="btnFuzzyPinyin" Content="拼音设置"  Padding="10,2" BorderBrush="#0078D7" BorderThickness="2"/>
 
                                     <TextBlock Grid.Row="1" Grid.Column="0" Text="简/繁体："/>
                                     <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="20" Margin="0,5">
@@ -151,7 +150,7 @@
                                                      IsChecked="{Binding PhraseSingleChar, Converter={StaticResource EqualityConverter}, ConverterParameter='单字'}" />
                                     </StackPanel>
                                     <CheckBox Grid.Row="3" Grid.Column="2" Content="智能调频"
-                                              IsChecked="{Binding EnableUserDict}"/>
+                                              IsChecked="{Binding EnableUserDictLearning}"/>
                                     <CheckBox Grid.Row="3" Grid.Column="3" Content="自动造词"
                                               IsChecked="{Binding EnableEncoder}"/>
                                     <CheckBox Grid.Row="3" Grid.Column="4" Content="屏蔽GBK"
@@ -162,7 +161,7 @@
                             
 
                             <!-- Z 键与按键行为 -->
-                            <Grid ColumnDefinitions="120, 120, 130, 140, 120" RowDefinitions="Auto, Auto" Margin="0,8,0,0">
+                            <Grid ColumnDefinitions="120, 120, 130, 140, 120" RowDefinitions="Auto, Auto, Auto" Margin="0,8,0,0">
                                 <CheckBox Grid.Row="0" Grid.Column="0" Content="Z键为通配键" Margin="0,5"
                                           IsChecked="{Binding ZKeyWildcard}"/>
                                 <CheckBox Grid.Row="0" Grid.Column="1" Content="Z键重复上屏" Margin="0,5"
@@ -175,15 +174,20 @@
                                           IsChecked="{Binding NullReturn}"
                                           IsEnabled="{Binding NullReturnEnabled}"/>
 
-                                <CheckBox Grid.Row="1" Grid.Column="0" Content="快速上屏" Margin="0,5"
+                                <CheckBox Grid.Row="1" Grid.Column="0" Content="四码唯一上屏" Margin="0,5"
                                           IsChecked="{Binding AutoSelect}"/>
-                                <CheckBox Grid.Row="1" Grid.Column="1" Content="四码唯一上屏" Margin="0,5"
+                                <CheckBox Grid.Row="1" Grid.Column="1" Content="自动上屏" Margin="0,5"
                                           IsChecked="{Binding MaxCodeLength}"
                                           IsEnabled="{Binding MaxCodeEnabled}"/>
                                 <CheckBox Grid.Row="1" Grid.Column="2" Content="双击候选框截屏" Margin="0,5"
                                           IsChecked="{Binding ClickToCapture}"/>
-                                <CheckBox Grid.Row="1" Grid.Column="3" Content="空码空格上屏编码" Margin="0,5"
+                                <CheckBox Grid.Row="1" Grid.Column="3" Content="空码空格上屏" Margin="0,5"
                                           IsChecked="{Binding SpaceScreen}"/>
+                                <CheckBox Grid.Row="1" Grid.Column="4" Content="自动清空编码" Margin="0,5"
+                                          IsChecked="{Binding AutoClear}"/>
+
+                                <CheckBox Grid.Row="2" Grid.Column="0" Content="第五码顶屏" Margin="0,5"
+                                          IsChecked="{Binding TopScreen}"/>
                             </Grid>
 
                             <!-- 输入方案选择（自定义时显示） -->
@@ -214,7 +218,6 @@
                              IsReadOnly="True"
                              TextWrapping="Wrap"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             Background="White"
                              Text="{Binding HelpText, Mode=OneWay}" />
                 </Grid>
             </TabItem>
@@ -228,66 +231,66 @@
                         <Border Classes="GroupBox" Margin="-5,10,0,0"/>
                         <TextBlock Classes="GroupBoxHeader" Text="外观设置" Margin="15,0,0,0" FontSize="16"/>
                         <ScrollViewer Margin="0,22,5,5" VerticalScrollBarVisibility="Auto">
-                            <Grid ColumnDefinitions="150, *" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="4">
+                            <Grid ColumnDefinitions="150, *" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="2">
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="默认文字颜色:"/>
-                                <controls:RimeColorPicker x:Name="text_color_box" Grid.Row="0" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="text_color_box" Grid.Row="0" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="候选框背景色:"/>
-                                <controls:RimeColorPicker x:Name="back_color_box" Grid.Row="1" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="back_color_box" Grid.Row="1" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="候选框边框色:"/>
-                                <controls:RimeColorPicker x:Name="border_color_box" Grid.Row="2" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="border_color_box" Grid.Row="2" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="3" Grid.Column="0" Text="候选框阴影色:"/>
-                                <controls:RimeColorPicker x:Name="shadow_color_box" Grid.Row="3" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="shadow_color_box" Grid.Row="3" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="4" Grid.Column="0" Text="编码背景颜色:"/>
-                                <controls:RimeColorPicker x:Name="hilited_back_color_box" Grid.Row="4" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="hilited_back_color_box" Grid.Row="4" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="5" Grid.Column="0" Text="编码文字颜色:"/>
-                                <controls:RimeColorPicker x:Name="hilited_text_color_box" Grid.Row="5" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="hilited_text_color_box" Grid.Row="5" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="6" Grid.Column="0" Text="编码背景块阴影颜色:"/>
-                                <controls:RimeColorPicker x:Name="hilited_shadow_color_box" Grid.Row="6" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="hilited_shadow_color_box" Grid.Row="6" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="7" Grid.Column="0" Text="注释文本颜色:"/>
-                                <controls:RimeColorPicker x:Name="comment_text_color_box" Grid.Row="7" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="comment_text_color_box" Grid.Row="7" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="8" Grid.Column="0" Text="高亮的标签竖块的颜色:"/>
-                                <controls:RimeColorPicker x:Name="hilited_mark_color_box" Grid.Row="8" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="hilited_mark_color_box" Grid.Row="8" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="9" Grid.Column="0" Text="高亮候选背景颜色:"/>
-                                <controls:RimeColorPicker x:Name="hilited_candidate_back_color_box" Grid.Row="9" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="hilited_candidate_back_color_box" Grid.Row="9" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="10" Grid.Column="0" Text="高亮候选背景阴影颜色:"/>
-                                <controls:RimeColorPicker x:Name="hilited_candidate_shadow_color_box" Grid.Row="10" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="hilited_candidate_shadow_color_box" Grid.Row="10" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="11" Grid.Column="0" Text="高亮候选的序数值颜色:"/>
-                                <controls:RimeColorPicker x:Name="hilited_label_color_box" Grid.Row="11" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="hilited_label_color_box" Grid.Row="11" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="12" Grid.Column="0" Text="高亮候选文字颜色:"/>
-                                <controls:RimeColorPicker x:Name="hilited_candidate_text_color_box" Grid.Row="12" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="hilited_candidate_text_color_box" Grid.Row="12" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="13" Grid.Column="0" Text="高亮候选背景块描边色:"/>
-                                <controls:RimeColorPicker x:Name="hilited_candidate_border_color_box" Grid.Row="13" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="hilited_candidate_border_color_box" Grid.Row="13" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="14" Grid.Column="0" Text="高亮注释文字颜色:"/>
-                                <controls:RimeColorPicker x:Name="hilited_comment_text_color_box" Grid.Row="14" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="hilited_comment_text_color_box" Grid.Row="14" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="15" Grid.Column="0" Text="非高亮候选背景颜色:"/>
-                                <controls:RimeColorPicker x:Name="candidate_back_color_box" Grid.Row="15" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="candidate_back_color_box" Grid.Row="15" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="16" Grid.Column="0" Text="非高亮候选文字颜色:"/>
-                                <controls:RimeColorPicker x:Name="candidate_text_color_box" Grid.Row="16" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="candidate_text_color_box" Grid.Row="16" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="17" Grid.Column="0" Text="非高亮候选背景阴影色:"/>
-                                <controls:RimeColorPicker x:Name="candidate_shadow_color_box" Grid.Row="17" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="candidate_shadow_color_box" Grid.Row="17" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="18" Grid.Column="0" Text="非高亮候选序数值颜色:"/>
-                                <controls:RimeColorPicker x:Name="label_color_box" Grid.Row="18" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="label_color_box" Grid.Row="18" Grid.Column="1" Height="26"/>
 
                                 <TextBlock Grid.Row="19" Grid.Column="0" Text="非高亮候选边框颜色:"/>
-                                <controls:RimeColorPicker x:Name="candidate_border_color_box" Grid.Row="19" Grid.Column="1" Height="30"/>
+                                <controls:RimeColorPicker x:Name="candidate_border_color_box" Grid.Row="19" Grid.Column="1" Height="26"/>
                             </Grid>
                         </ScrollViewer>
                     </Grid>
@@ -326,7 +329,7 @@
                                 <StackPanel Margin="10,22,10,10" Spacing="10">
                                     <StackPanel Orientation="Horizontal" Spacing="15">
                                         <TextBlock Text="每页候选词" VerticalAlignment="Center"/>
-                                        <NumericUpDown Minimum="1" Maximum="10"
+                                        <NumericUpDown Minimum="1" Maximum="20"
                                                        Value="{Binding PageSize, Mode=TwoWay}"
                                                        Width="120"/>
                                         <CheckBox Content="编码嵌入在光标处" VerticalAlignment="Center"
@@ -458,14 +461,14 @@
         </TabControl>
 
         <!-- ================= 底部状态栏和操作按钮 ================= -->
-        <Border Grid.Row="1" Background="#EFEFEF" BorderBrush="#D0D0D0" BorderThickness="0,1,0,0" Padding="10">
+        <Border Grid.Row="1" BorderThickness="0,1,0,0" Padding="10">
             <Grid ColumnDefinitions="Auto, *">
                 <TextBlock Grid.Column="0" Text="{Binding StatusText}" VerticalAlignment="Center" FontSize="12" MinWidth="140"/>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="80">
-                    <Button x:Name="btnInitialize" Content="初始化" Padding="20,5"/>
-                    <Button x:Name="btnRedeploy" Content="重新部署" Padding="20,5"
+                    <Button x:Name="btnInitialize" Content="初始化" Padding="20,5" BorderBrush="#0078D7" BorderThickness="2"/>
+                    <Button x:Name="btnRedeploy" Content="重新部署" Padding="20,5" BorderBrush="#0078D7" BorderThickness="2"
                             Command="{Binding RedeployCommand}"/>
-                    <Button x:Name="btnSaveSettings" Content="保存" Padding="30,5" BorderBrush="#0078D7" BorderThickness="2" Background="White"/>
+                    <Button x:Name="btnSaveSettings" Content="保存" Padding="30,5" BorderBrush="#0078D7" BorderThickness="2"/>
                 </StackPanel>
             </Grid>
         </Border>

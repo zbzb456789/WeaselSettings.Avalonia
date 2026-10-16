@@ -31,15 +31,15 @@ public partial class MainViewModel : ViewModelBase
     {
         SelectLabelOptions = new[]
         {
-            "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]",
-            "[1., 2., 3., 4., 5., 6., 7., 8., 9., 10.]",
-            "[⑴, ⑵, ⑶, ⑷, ⑸, ⑹, ⑺, ⑻, ⑼, ⑽]",
-            "[①, ②, ③, ④, ⑤, ⑥, ⑦, ⑧, ⑨, ⑩]",
-            "[㊀, ㊁, ㊂, ㊃, ㊄, ㊅, ㊆, ㊇, ㊈, ㊉]",
-            "[❶, ❷, ❸, ❹, ❺, ❻, ❼, ❽, ❾, ❿]",
-            "[Ⅰ, Ⅱ, Ⅲ, Ⅳ, Ⅴ, Ⅵ, Ⅶ, Ⅷ, Ⅸ, Ⅹ, Ⅺ, Ⅻ]",
-            "[甲, 乙, 丙, 丁, 戊, 己, 庚, 辛, 壬, 癸]",
-            "[子, 丑, 寅, 卯, 辰, 巳, 午, 未, 申, 酉, 戌, 亥]"
+            "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]",
+            "[1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12., 13., 14., 15., 16., 17., 18., 19., 20.]",
+            "[⑴, ⑵, ⑶, ⑷, ⑸, ⑹, ⑺, ⑻, ⑼, ⑽, ⑾, ⑿, ⒀, ⒁, ⒂, ⒃, ⒄, ⒅, ⒆, ⒇]",
+            "[①, ②, ③, ④, ⑤, ⑥, ⑦, ⑧, ⑨, ⑩, ⑪, ⑫, ⑬, ⑭, ⑮, ⑯, ⑰, ⑱, ⑲, ⑳]",
+            "[㊀, ㊁, ㊂, ㊃, ㊄, ㊅, ㊆, ㊇, ㊈, ㊉, ㊊, ㊋, ㊌, ㊍, ㊎, ㊏, ㊐, ㊑, ㊒, ㊓]",
+            "[❶, ❷, ❸, ❹, ❺, ❻, ❼, ❽, ❾, ❿, ⓫, ⓬, ⓭, ⓮, ⓯, ⓰, ⓱, ⓲, ⓳, ⓴]",
+            "[I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII, XIII, XIV, XV, XVI, XVII, XVIII, XIX, XX]",
+            "[甲, 乙, 丙, 丁, 戊, 己, 庚, 辛, 壬, 癸, 甲, 乙, 丙, 丁, 戊, 己, 庚, 辛, 壬, 癸]",
+            "[子, 丑, 寅, 卯, 辰, 巳, 午, 未, 申, 酉, 戌, 亥, 子, 丑, 寅, 卯, 辰, 巳, 午, 未, 申, 酉, 戌, 亥]"
         };
 
         DictSourceNames = ["86五笔", "98五笔", "新世纪", "986五笔", "虎码", "自定义", "用户词库"];
@@ -67,7 +67,7 @@ public partial class MainViewModel : ViewModelBase
         "说明：\n" +
         "1、为了规范词库，导入系统词库不支持空格，特殊需求去用户词库导入，具体使用方法看词库教程。\n" +
         "2、生僻字开关对应屏蔽GBK开关，需要码表和拆分表对应才能正常使用\n" +
-        "快捷键：\n" +
+        "默认快捷键：\n" +
         "    Ctrl+`         打开属性设置\n" +
         "    Ctrl+shift+F   繁简切换\n" +
         "    shift+空格     半/全角切换\n" +
@@ -80,11 +80,12 @@ public partial class MainViewModel : ViewModelBase
         "    Ctrl+shift+E   Emoji开关\n" +
         "    Ctrl+shift+X   单字序号开关\n" +
         "    Ctrl+shift+T   英文单词翻译开关\n" +
-        "    shift + v  计算器 shift+r  金额、数字大小写\n" +
-        "    shift+u Unicode打字\n" +
-        "    nong 农历    jieq   24节气 week   星期\n" +
-        "    date    日期 time   时间\n" +
+        "    shift + v  计算器 shift + r  金额、数字大小写\n" +
+        "    shift + u  Unicode打字\n" +
+        "    nong 农历    jieq  24节气    week 星期\n" +
+        "    date 日期    time  时间\n" +
         "    Ctrl+1 五笔拼音混输 Ctrl+2 纯五笔 Ctrl+3 纯拼音\n" +
+        "    ~开头打出词组，触发快捷造词\n" +
         "                                                本人QQ：270271227";
 
     // ============================================================
@@ -166,7 +167,7 @@ public partial class MainViewModel : ViewModelBase
     public partial bool Gb2312Only { get; set; }
 
     [ObservableProperty]
-    public partial bool EnableUserDict { get; set; }
+    public partial bool EnableUserDictLearning { get; set; }
 
     [ObservableProperty]
     public partial bool UserDictEnabled { get; set; } = true;
@@ -198,6 +199,12 @@ public partial class MainViewModel : ViewModelBase
 
     [ObservableProperty]
     public partial bool AutoSelect { get; set; }
+
+    [ObservableProperty]
+    public partial bool AutoClear { get; set; }
+
+    [ObservableProperty]
+    public partial bool TopScreen { get; set; }
 
     [ObservableProperty]
     public partial bool MaxCodeLength { get; set; }
@@ -413,12 +420,12 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
-    partial void OnEnableUserDictChanged(bool value)
+    partial void OnEnableUserDictLearningChanged(bool value)
     {
         if (_loading) return;
         var valueText = value ? "true" : "false";
-        _yamlHelper.ModifyNode(Path.Combine(RimeUserDir, "wubi.custom.yaml"), "patch/translator/enable_user_dict", valueText);
-        _yamlHelper.ModifyNode(Path.Combine(RimeUserDir, "wubi_pinyin.custom.yaml"), "patch/translator/enable_user_dict", valueText);
+        _yamlHelper.ModifyNode(Path.Combine(RimeUserDir, "wubi.custom.yaml"), "patch/translator/enable_user_dict_learning", valueText);
+        _yamlHelper.ModifyNode(Path.Combine(RimeUserDir, "wubi_pinyin.custom.yaml"), "patch/translator/enable_user_dict_learning", valueText);
     }
 
     // ============================================================
@@ -484,9 +491,26 @@ public partial class MainViewModel : ViewModelBase
     partial void OnAutoSelectChanged(bool value)
     {
         MaxCodeEnabled = value;
+        if (value == false) { MaxCodeLength = true; };
         if (_loading) return;
 
         _yamlHelper.ModifyNode(Path.Combine(RimeUserDir, "wubi.custom.yaml"), "patch/speller/auto_select",
+            value ? "true" : "false");
+    }
+
+    partial void OnAutoClearChanged(bool value)
+    {
+        if (_loading) return;
+
+        _yamlHelper.ModifyNode(Path.Combine(RimeUserDir, "wubi.custom.yaml"), "patch/speller/auto_clear",
+            value ? "max_length" : "0");
+    }
+
+    partial void OnTopScreenChanged(bool value)
+    {
+        if (_loading) return;
+
+        _yamlHelper.ModifyNode(Path.Combine(RimeUserDir, "wubi.custom.yaml"), "patch/speller/auto_select_unique_candidate",
             value ? "true" : "false");
     }
 
@@ -494,7 +518,7 @@ public partial class MainViewModel : ViewModelBase
     {
         if (_loading) return;
         _yamlHelper.ModifyNode(Path.Combine(RimeUserDir, "wubi.custom.yaml"), "patch/speller/max_code_length",
-            value ? "4" : "0");
+            value ? "0" : "4");
     }
 
     partial void OnEnglishWordChanged(bool value)
@@ -742,6 +766,8 @@ public partial class MainViewModel : ViewModelBase
             string returnEsc = GetNode("wubi.custom.yaml", "patch/key_binder/bindings/@next");
             string spaceScreen = GetNode("wubi.custom.yaml", "patch/key_binder/bindings/@next1");
             string autoSelect = GetNode("wubi.custom.yaml", "patch/speller/auto_select");
+            string autoclear = GetNode("wubi.custom.yaml", "patch/speller/auto_clear");
+            string topscreen = GetNode("wubi.custom.yaml", "patch/speller/auto_select_unique_candidate");
             string maxCodeLength = GetNode("wubi.custom.yaml", "patch/speller/max_code_length");
             string enableEncoder = GetNode("wubi.custom.yaml", "patch/translator/enable_encoder");
             string englishword1 = GetNode("wubi.extended.dict.yaml", "import_tables");
@@ -754,7 +780,7 @@ public partial class MainViewModel : ViewModelBase
             string userDict5 = GetNode("wubi.custom.yaml", "patch/ci_reverse_lookup/dictionary");
             string enableCompletion = GetNode("wubi.custom.yaml", "patch/translator/enable_completion");
 
-            string enableUserDict = GetNode("wubi.custom.yaml", "patch/translator/enable_user_dict");
+            string enableUserDictlearning = GetNode("wubi.custom.yaml", "patch/translator/enable_user_dict_learning");
             string pageSize = GetNode("default.custom.yaml", "patch/menu/page_size");
             string inlinePreedit = GetNode("weasel.custom.yaml", "patch/style/inline_preedit");
             string fontPoint = GetNode("weasel.custom.yaml", "patch/style/font_point");
@@ -816,11 +842,13 @@ public partial class MainViewModel : ViewModelBase
                 EnglishWord = false;
             }
             SpaceScreen = spaceScreen != "{}";
-            MaxCodeLength = maxCodeLength == "4";
+            MaxCodeLength = maxCodeLength == "0";
             AutoSelect = autoSelect?.ToLowerInvariant() == "true";
+            AutoClear = autoclear?.ToLowerInvariant() == "max_length";
+            TopScreen = topscreen?.ToLowerInvariant() == "true";
             EnableEncoder = enableEncoder?.ToLowerInvariant() == "true";
             EnableCompletion = enableCompletion?.ToLowerInvariant() == "true";
-            EnableUserDict = enableUserDict?.ToLowerInvariant() == "true";
+            EnableUserDictLearning = enableUserDictlearning?.ToLowerInvariant() == "true";
             UserDictEnabled = !(userDict1 == "wubi" || userDict2 == "wubi" || userDict3 == "wubi" || userDict4 == "wubi" || userDict5 == "wubi");
 
             // ---- 外观 ----

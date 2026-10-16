@@ -20,6 +20,7 @@ public partial class FuzzyPinyinWindow : Window
     private static readonly string[] Value9 = ["derive/in$/ing/", "derive/ing$/in/"];
     private static readonly string[] Value10 = ["derive/ian$/iang/", "derive/iang$/ian/"];
     private static readonly string[] Value11 = ["derive/uan$/uang/", "derive/uang$/uan/"];
+    private static readonly string[] Value12 = ["abbrev/^([a-z]).+$/$1/", "abbrev/^([zcs]h).+$/$1/"];
 
     private readonly YamlHelper _yamlHelper = new();
     private readonly string _fullPath;
@@ -42,7 +43,8 @@ public partial class FuzzyPinyinWindow : Window
             { chkEn_Eng, Value8 },
             { chkIn_Ing, Value9 },
             { chkIan_Iang, Value10 },
-            { chkUan_Uang, Value11 }
+            { chkUan_Uang, Value11 },
+            { chkSimplePinyin, Value12 }
         };
 
         btnOk.Click += BtnOk_Click;

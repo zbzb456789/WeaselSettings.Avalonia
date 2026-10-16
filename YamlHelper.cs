@@ -46,14 +46,14 @@ namespace WeaselSettings
             {
                 string path;
                 using (var key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Default))
-                using (var subKey = key.OpenSubKey(@"Software\Rime\Weasel"))
+                using (var subKey = key.OpenSubKey(@"Software\RimeUI"))
                 {
                     path = subKey?.GetValue("RimeUserDir") as string;
                     if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
                         return path;
                 }
                 using (var key32 = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32))
-                using (var subKey32 = key32.OpenSubKey(@"Software\Rime\Weasel"))
+                using (var subKey32 = key32.OpenSubKey(@"Software\RimeUI"))
                 {
                     path = subKey32?.GetValue("RimeUserDir") as string;
                     if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
@@ -94,14 +94,14 @@ namespace WeaselSettings
             if (OperatingSystem.IsWindows())
             {
                 using var key = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
-                using var subKey = key.OpenSubKey(@"SOFTWARE\Rime\Weasel");
-                var path = subKey?.GetValue("WeaselRoot") as string;
+                using var subKey = key.OpenSubKey(@"SOFTWARE\RimeUI");
+                var path = subKey?.GetValue("RimeUIRoot") as string;
                 if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
                     return path;
 
                 using var key32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
-                using var subKey32 = key32.OpenSubKey(@"SOFTWARE\Rime\Weasel");
-                path = subKey32?.GetValue("WeaselRoot") as string;
+                using var subKey32 = key32.OpenSubKey(@"SOFTWARE\RimeUI");
+                path = subKey32?.GetValue("RimeUIRoot") as string;
                 if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
                     return path;
             }
@@ -127,10 +127,9 @@ namespace WeaselSettings
         // --- 部署 ---
         public static void RunDeploy()
         {
-            string deployerPath = Path.Combine(GetInstallDir(), "WeaselDeployer.exe");
+            string deployerPath = Path.Combine(GetInstallDir(), "RimeUIDeployer.exe");
             if (File.Exists(deployerPath))
             {
-                RestartRimeServer();
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = deployerPath,
@@ -142,7 +141,7 @@ namespace WeaselSettings
             }
             else
             {
-                throw new FileNotFoundException("未找到 WeaselDeployer.exe，请确保软件在Rime安装根目录！");
+                throw new FileNotFoundException("未找到 RimeUIDeployer.exe，请确保软件在Rime安装根目录！");
             }
         }
 
@@ -905,7 +904,7 @@ namespace WeaselSettings
         {
             try
             {
-                string serverPath = Path.Combine(YamlHelper.GetInstallDir(), "WeaselServer.exe");
+                string serverPath = Path.Combine(YamlHelper.GetInstallDir(), "RimeUIServer.exe");
 
                 if (File.Exists(serverPath))
                 {
@@ -929,7 +928,7 @@ namespace WeaselSettings
         {
             try
             {
-                string serverPath = Path.Combine(YamlHelper.GetInstallDir(), "WeaselServer.exe");
+                string serverPath = Path.Combine(YamlHelper.GetInstallDir(), "RimeUIServer.exe");
 
                 if (File.Exists(serverPath))
                 {
